@@ -21,5 +21,22 @@
 
 const loginFormRef = document.querySelector("form.login-form");
 
-loginFormRef.addEventListener("submit", (event) => {});
+loginFormRef.addEventListener("submit", handleSubmit);
 
+function handleSubmit(event) {
+  event.preventDefault();
+
+  const emailInputRef = loginFormRef.elements.email;
+  const passwordInputRef = loginFormRef.elements.password;
+
+  if (emailInputRef.value === "" || passwordInputRef.value === "") {
+    return alert("Please fill in all the fields!");
+  } else {
+    const formData = {
+      email: emailInputRef.value,
+      password: passwordInputRef.value,
+    };
+    console.log(formData);
+    loginFormRef.reset();
+  }
+}
