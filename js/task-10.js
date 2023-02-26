@@ -17,7 +17,7 @@
 // Используй готовую функцию getRandomHexColor
 // для получения цвета.
 
-// Создай функцию destroyBoxes(), 
+// Создай функцию destroyBoxes(),
 // которая очищает содержимое div#boxes,
 //  тем самым удаляя все созданные элементы.
 
@@ -25,4 +25,41 @@ function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215)
     .toString(16)
     .padStart(6, 0)}`;
+}
+
+const refs = {
+  inputCollection: document.querySelector("input[type=number]"),
+  createBtn: document.querySelector("[data-create]"),
+  destroyBtn: document.querySelector("[data-destroy]"),
+  boxesCollection: document.querySelector("#boxes"),
+};
+
+refs.boxesCollection.setAttribute(
+  "style",
+  "display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px;"
+);
+
+refs.createBtn.addEventListener("click", () =>
+  createBoxes(refs.inputCollection.value)
+);
+refs.destroyBtn.addEventListener("click", destroyBoxes);
+
+function createBoxes(amount) {
+  const boxes = [];
+
+  for (let i = 0; i < amount; i += 1) {
+    const size = 30 + i * 10;
+    const box = document.createElement("div");
+    box.classList.add("box");
+    box.style.backgroundColor = getRandomHexColor();
+    box.style.width = `${size}px`;
+    box.style.height = `${size}px`;
+    box.style.fontSize = `${size / 4}px`;
+    boxes.push(box);
+  }
+  refs.boxesCollection.append(...boxes);
+}
+
+function destroyBoxes() {
+  refs.boxesCollection.innerHTML = "";
 }
